@@ -62,7 +62,82 @@ function App() {
 
     setLoading(false);
   };
+{/* EXPERT SUPPORT */}
 
+<section className="py-20 bg-white">
+
+  <div className="max-w-7xl mx-auto px-6">
+
+    <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+      <div>
+
+        <h1 className="text-5xl font-extrabold text-blue-950">
+          Expert-Led Support
+        </h1>
+
+        <p className="mt-8 text-xl leading-10 text-gray-600">
+
+          Our team combines 20+ years of industry experience
+          with AI-powered efficiency to deliver faster and smarter
+          compliance solutions.
+
+        </p>
+
+        <div className="mt-10 space-y-5 text-lg text-gray-700">
+
+          <p>✅ GMP & Regulatory Consulting</p>
+
+          <p>✅ Audit & Inspection Readiness</p>
+
+          <p>✅ Validation & Documentation Support</p>
+
+          <p>✅ QA/QC Compliance Systems</p>
+
+        </div>
+
+      </div>
+
+      <div className="bg-[#f4f7fb] rounded-[35px] p-10 shadow-xl">
+
+        <h2 className="text-4xl font-extrabold text-blue-950">
+          Trusted Industry Support
+        </h2>
+
+        <p className="mt-6 text-lg leading-9 text-gray-600">
+
+          We support Pharma, Nutraceutical, API and Food companies
+          with end-to-end compliance and regulatory solutions.
+
+        </p>
+
+        <div className="grid grid-cols-2 gap-5 mt-10">
+
+          <div className="bg-white rounded-2xl p-5 shadow text-center font-bold text-blue-900">
+            Pharma
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow text-center font-bold text-blue-900">
+            API
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow text-center font-bold text-blue-900">
+            Nutraceutical
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow text-center font-bold text-blue-900">
+            Food Industry
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
   const services = [
     {
       no: "01",
@@ -682,6 +757,94 @@ function App() {
           </div>
 
         </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+{/* HOW WE WORK */}
+
+<section className="py-24 bg-[#f8fafc]">
+
+  <div className="max-w-7xl mx-auto px-6">
+
+    <div className="text-center">
+
+      <h1 className="text-5xl font-extrabold text-blue-950">
+        How We Work
+      </h1>
+
+      <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto leading-9">
+
+        A structured and efficient approach to support your
+        compliance and regulatory requirements.
+
+      </p>
+
+    </div>
+
+    <div className="grid lg:grid-cols-5 gap-6 mt-20">
+
+      <div className="bg-white rounded-[30px] p-8 shadow-lg text-center">
+
+        <div className="text-5xl font-extrabold text-green-600">
+          1
+        </div>
+
+        <h3 className="mt-6 text-2xl font-bold text-blue-950">
+          Requirement Discussion
+        </h3>
+
+      </div>
+
+      <div className="bg-white rounded-[30px] p-8 shadow-lg text-center">
+
+        <div className="text-5xl font-extrabold text-green-600">
+          2
+        </div>
+
+        <h3 className="mt-6 text-2xl font-bold text-blue-950">
+          Gap Assessment
+        </h3>
+
+      </div>
+
+      <div className="bg-white rounded-[30px] p-8 shadow-lg text-center">
+
+        <div className="text-5xl font-extrabold text-green-600">
+          3
+        </div>
+
+        <h3 className="mt-6 text-2xl font-bold text-blue-950">
+          Documentation & Compliance
+        </h3>
+
+      </div>
+
+      <div className="bg-white rounded-[30px] p-8 shadow-lg text-center">
+
+        <div className="text-5xl font-extrabold text-green-600">
+          4
+        </div>
+
+        <h3 className="mt-6 text-2xl font-bold text-blue-950">
+          Audit / Regulatory Support
+        </h3>
+
+      </div>
+
+      <div className="bg-white rounded-[30px] p-8 shadow-lg text-center">
+
+        <div className="text-5xl font-extrabold text-green-600">
+          5
+        </div>
+
+        <h3 className="mt-6 text-2xl font-bold text-blue-950">
+          Ongoing Expert Assistance
+        </h3>
 
       </div>
 
