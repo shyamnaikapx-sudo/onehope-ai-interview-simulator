@@ -185,10 +185,17 @@ function App() {
 
           <div className="hidden lg:flex gap-8 font-semibold text-blue-950">
 
-            <a href="#">HOME</a>
-            <a href="#services">SERVICES</a>
-            <a href="#ai">AI ASSISTANT</a>
-            <a href="#contact">CONTACT</a>
+            <a href="/">HOME</a>
+
+<a href="#services">SERVICES</a>
+
+<a href="/ai-audit-simulator">
+  AUDIT SIMULATOR
+</a>
+
+<a href="#ai">AI ASSISTANT</a>
+
+<a href="#contact">CONTACT</a>
 
           </div>
 
@@ -580,7 +587,83 @@ function App() {
   </div>
 
 </section>
+{/* AI AUDIT SIMULATOR */}
 
+<section className="py-20 bg-white">
+
+  <div className="max-w-7xl mx-auto px-6">
+
+    <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-[40px] p-12 text-white grid lg:grid-cols-2 gap-12 items-center">
+
+      <div>
+
+        <h1 className="text-5xl font-extrabold leading-tight">
+
+          AI Audit Simulator
+
+        </h1>
+
+        <p className="mt-8 text-xl leading-9 text-gray-200">
+
+          Practice realistic WHO GMP and USFDA inspections
+          using AI-powered audit simulations designed for
+          Pharma, QA/QC and Regulatory professionals.
+
+        </p>
+
+        <div className="mt-8 space-y-4 text-lg">
+
+          <p>✅ WHO GMP Audit Practice</p>
+
+          <p>✅ USFDA Inspection Simulation</p>
+
+          <p>✅ AI-Based Evaluation & Feedback</p>
+
+          <p>✅ Audit Readiness Scoring</p>
+
+        </div>
+
+      </div>
+
+      <div className="bg-white/10 rounded-[30px] p-10 border border-white/20">
+
+        <h2 className="text-3xl font-extrabold">
+
+          Features
+
+        </h2>
+
+        <div className="mt-8 space-y-5 text-lg">
+
+          <p>• Interactive audit questions</p>
+
+          <p>• Real GMP & FDA scenarios</p>
+
+          <p>• CAPA recommendations</p>
+
+          <p>• Compliance evaluation</p>
+
+          <p>• Interview preparation</p>
+
+        </div>
+
+        <a href="/ai-audit-simulator">
+
+          <button className="mt-10 bg-green-500 hover:bg-green-600 px-8 py-4 rounded-2xl font-bold text-lg transition-all">
+
+            Launch Audit Simulator
+
+          </button>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
       {/* TESTIMONIALS */}
 
       <section className="py-20 bg-white">
