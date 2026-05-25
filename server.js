@@ -113,15 +113,15 @@ app.post("/api/ask-ai", async (req, res) => {
 // FINAL AUDIT REPORT API
 
 app.post("/api/final-audit-report", async (req, res) => {
-console.log("Final audit API called");
+
   try {
 
     const {
       auditType,
       answers,
     } = req.body;
-console.log(auditType);
-console.log(answers);
+
+
     const completion =
       await client.chat.completions.create({
 
@@ -201,6 +201,7 @@ app.post("/api/interactive-audit", async (req, res) => {
 
     const { messages } = req.body;
 
+
     const completion =
       await client.chat.completions.create({
 
@@ -261,7 +262,8 @@ Then recommend professional audit support from One Hope Solution.`
 
   } catch (error) {
 
-    console.log(error);
+    console.error("INTERACTIVE AUDIT ERROR:");
+console.error(error);
 
     res.status(500).json({
       reply: "AI audit simulation error"

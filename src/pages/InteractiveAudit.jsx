@@ -13,68 +13,69 @@ function InteractiveAudit() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async () => {
+const sendMessage = async () => {
 
-    if (!input) return;
+  if (!input.trim()) return;
 
-    const updatedMessages = [
-      ...messages,
-      {
-        role: "user",
-        text: input
-      }
-    ];
-
-    setMessages(updatedMessages);
-
-    setLoading(true);
-
-    try {
-
-      const response = await fetch(
-        "http://localhost:5000/api/interactive-audit",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            messages: updatedMessages
-          }),
-        }
-      );
-
-      const data = await response.json();
-      console.log(data);
-
-if (data.reply) {
-
-  setMessages([
-    ...updatedMessages,
-    {
-      role: "ai",
-      text: data.reply
-    }
-  ]);
-
-} else {
-
-  alert("AI response failed");
-
-}
-
-      setInput("");
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-    setLoading(false);
+  const userMessage = {
+    role: "user",
+    text: input,
   };
+
+  const newMessages = [
+    ...messages,
+    userMessage,
+  ];
+
+  setMessages(newMessages);
+
+  setInput("");
+
+  setLoading(true);
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/api/interactive-audit",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          messages: newMessages,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("AI RESPONSE:", data);
+
+    if (data.reply) {
+
+      const aiMessage = {
+        role: "ai",
+        text: data.reply,
+      };
+
+      setMessages([
+        ...newMessages,
+        aiMessage,
+      ]);
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+  setLoading(false);
+};
 
   return (
 
