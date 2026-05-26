@@ -43,21 +43,20 @@ const sendMessage = async () => {
 
   try {
 
-    const response = await fetch(
-      "const response = await fetch(
-  "https://onehope-live.onrender.com/api/interactive-audit",",
-      {
-        method: "POST",
+const response = await fetch(
+  "https://onehope-live.onrender.com/api/interactive-audit",
+  {
+    method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
+    headers: {
+      "Content-Type": "application/json",
+    },
 
-        body: JSON.stringify({
-          messages: newMessages,
-        }),
-      }
-    );
+    body: JSON.stringify({
+      messages: newMessages,
+    }),
+  }
+);
 
     const data = await response.json();
 
