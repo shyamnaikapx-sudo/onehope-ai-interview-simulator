@@ -272,7 +272,148 @@ console.error(error);
   }
 
 });
+app.post("/api/ai-interview", async (req, res) => {
 
+  try {
+
+    const {
+      messages,
+      interest,
+      name,
+    } = req.body;
+
+    const completion =
+      await client.chat.completions.create({
+
+        model: "gpt-4o-mini",
+
+        messages: [
+
+          {
+            role: "system",
+
+            content:
+`You are a professional AI interviewer.
+
+Conduct an interactive interview for a ${interest} candidate.
+
+Ask one interview question at a time.
+
+Adapt based on the user's answers.
+
+Limit interview to 10 questions maximum.
+
+After interview completion:
+provide:
+
+Interview Readiness Score
+Strengths
+Weaknesses
+Communication Feedback
+Technical Feedback
+Recommendations
+
+Keep interview realistic and professional.`
+
+          },
+
+          ...messages.map((m) => ({
+            role:
+              m.role === "ai"
+                ? "assistant"
+                : "user",
+
+            content: m.text
+          }))
+
+        ],
+
+        temperature: 0.4,
+        max_tokens: 500,
+
+      });
+
+    const reply =
+      completion.choices[0].message.content;
+
+    let finalReport = "";
+
+    if (messages.length >= 10) {
+
+      finalReport = reply;
+
+    }
+
+    res.json({
+      reply,
+      finalReport
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      reply: "AI interview error"
+    });
+
+  }
+
+});
+app.post("/api/ai-interview-start", async (req, res) => {
+
+  try {
+
+    const {
+      interest,
+      name,
+    } = req.body;
+
+    const completion =
+      await client.chat.completions.create({
+
+        model: "gpt-4o-mini",
+
+        messages: [
+
+          {
+            role: "system",
+
+            content:
+`You are a professional AI interviewer.
+
+Start a realistic interview for a ${interest} candidate.
+
+Generate ONLY the first interview question.
+
+The question should feel realistic, professional and engaging.`
+          }
+
+        ],
+
+        temperature: 0.5,
+        max_tokens: 150,
+
+      });
+
+    res.json({
+
+      question:
+        completion.choices[0].message.content
+
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      question: "Interview start failed"
+    });
+
+  }
+
+});
 app.listen(5000, () => {
 
   console.log("Server running on port 5000");

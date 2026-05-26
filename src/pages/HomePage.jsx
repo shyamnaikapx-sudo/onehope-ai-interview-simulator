@@ -96,7 +96,12 @@ function HomePage() {
             <a href="/ai-audit-simulator">
               AUDIT SIMULATOR
             </a>
-
+<a
+  href="/ai-interview-simulator"
+  className="hover:text-green-400 transition"
+>
+  AI INTERVIEW
+</a>
             <a href="#ai">AI ASSISTANT</a>
 
             <a href="#contact">CONTACT</a>

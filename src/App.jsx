@@ -1,3 +1,4 @@
+import AIInterviewSimulator from "./pages/AIInterviewSimulator";
 import InteractiveAudit from "./pages/InteractiveAudit";
 import {
   Routes,
@@ -25,7 +26,10 @@ function App() {
         path="/ai-audit-simulator"
         element={<AuditSimulator />}
       />
-
+<Route
+  path="/ai-interview-simulator"
+  element={<AIInterviewSimulator />}
+/>
     </Routes>
 
   );
