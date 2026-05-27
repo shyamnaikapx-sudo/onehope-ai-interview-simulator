@@ -295,20 +295,38 @@ app.post("/api/ai-interview-start", async (req, res) => {
           {
             role: "system",
 
-            content:
-`You are a professional AI interviewer.
+content:
+
+interest === "HR"
+
+? `You are a professional HR interviewer.
 
 Candidate Name:
 ${name}
 
-Career Interest:
-${interest}
+Rules:
+- Ask ONLY HR interview questions
+- Focus on recruitment, onboarding, employee relations, communication and conflict handling
+- Never ask GMP, CAPA, validation, OOS or pharma questions
+- Ask one concise professional question
+- Keep interview realistic`
 
-Start a realistic interview.
+: interest === "Pharma"
 
-Ask ONE professional interview question.
+? `You are a senior pharmaceutical interviewer.
 
-Keep it realistic and engaging.`
+Candidate Name:
+${name}
+
+Rules:
+- Ask ONLY pharma interview questions
+- Focus on QA, QC, GMP, CAPA, audits, validation and compliance
+- Ask one concise professional question
+- Keep interview realistic`
+
+: `You are a professional interviewer.
+
+Ask one realistic interview question based on candidate interest.`
           }
 
         ],
@@ -336,9 +354,6 @@ Keep it realistic and engaging.`
   }
 
 });
-
-
-
 app.post("/api/ai-interview", async (req, res) => {
 
   try {
@@ -349,96 +364,104 @@ app.post("/api/ai-interview", async (req, res) => {
       name,
     } = req.body;
 
+let interviewPrompt = "";
+
+if (interest === "HR") {
+
+  interviewPrompt = `
+You are a professional HR interviewer.
+
+Rules:
+- Ask only HR-related interview questions
+- Focus on recruitment, employee relations, onboarding, communication and conflict management
+- - Never ask GMP, CAPA, validation, OOS, deviation or compliance questions
+- Ask one concise question at a time
+- Ask follow-up questions based on previous answer
+- Keep interview realistic and professional
+- Limit interview to 5 questions
+- Never restart the interview
+- Never greet again after first question
+- Continue naturally from previous answer
+`;
+
+}
+
+else if (interest === "Pharma") {
+
+  interviewPrompt = `
+You are a senior pharmaceutical industry interviewer.
+
+Rules:
+- Ask about QA, QC, GMP, CAPA, validation, audits, deviations and compliance
+- Ask realistic pharma interview questions
+- Ask one concise question at a time
+- Ask deep follow-up questions
+- Keep interview professional and strict
+- Limit interview to 5 questions
+- Never restart the interview
+- Never greet again after first question
+- Continue naturally from previous answer
+`;
+
+}
+
+else if (interest === "Software") {
+
+  interviewPrompt = `
+You are a senior software engineering interviewer.
+
+Rules:
+- Ask about coding, debugging, APIs, projects and architecture
+- Ask one concise question at a time
+- Keep interview realistic and professional
+- Limit interview to 5 questions
+- Never restart the interview
+- Never greet again after first question
+- Continue naturally from previous answer
+`;
+
+}
+
+else {
+
+  interviewPrompt = `
+You are a professional interviewer.
+
+Ask realistic interview questions based on candidate background.
+
+Limit interview to 5 questions.
+`;
+
+}
+
 const completion =
   await client.chat.completions.create({
 
     model: "gpt-4o-mini",
 
-  messages: [
+    messages: [
 
-  {
-    role: "system",
+      {
+        role: "system",
+        content: interviewPrompt
+      },
 
-    content:
-`You are a senior pharmaceutical industry interviewer.
+      ...(messages || []).map((m) => ({
 
-Candidate Name:
-${name}
+        role:
+          m.role === "ai"
+            ? "assistant"
+            : "user",
 
-Career Interest:
-${interest}
+        content:
+          m.text || "No response"
 
-You are already in the middle of an ongoing interview.
+      }))
 
-STRICT RULES:
-
-- Never restart interview
-- Never greet again
-- Never say "thank you for joining"
-- Never ask generic introductory questions
-- Never repeat previous questions
-- Focus ONLY on the candidate's latest answer
-- Ask sharp professional follow-up questions
-- Behave like a real hiring manager
-
-INTERVIEW STYLE:
-
-If candidate says:
-"Method validation"
-
-DO:
-- ask about accuracy
-- ask about precision
-- ask about robustness
-- ask about OOS handling
-- ask about ICH guidelines
-- ask practical challenges
-
-If candidate says:
-"CAPA"
-
-DO:
-- ask about root cause analysis
-- ask about effectiveness checks
-- ask about investigation approach
-
-If candidate says:
-"QA"
-
-DO:
-- ask deviation handling
-- ask GDP
-- ask audits
-- ask compliance scenarios
-
-If candidate gives short answers:
-- professionally push deeper
-- ask for examples
-- ask for technical explanation
-
-Ask ONLY ONE question at a time.
-
-Do not repeat previous concepts.
-
-Interview should feel realistic and technically strong.`
-  },
-
-  ...(messages || []).map((m) => ({
-
-    role:
-      m.role === "ai"
-        ? "assistant"
-        : "user",
-
-    content:
-      m.text || "No response"
-
-  }))
-
-],
+    ],
 
     temperature: 0.5,
-    max_tokens: 300,
+    max_tokens: 250,
 
   });
 
@@ -460,6 +483,7 @@ Interview should feel realistic and technically strong.`
   }
 
 });
+
 app.listen(5000, () => {
 
   console.log("Server running on port 5000");

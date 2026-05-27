@@ -28,7 +28,8 @@ function AIInterviewSimulator() {
     Number(localStorage.getItem("sessionsUsed")) || 0;
 
   const handleStart = async () => {
-
+setMessages([]);
+  setQuestionCount(1);
   if (sessionsUsed >= 2) {
 
     alert(
@@ -43,7 +44,7 @@ function AIInterviewSimulator() {
   try {
 
     console.log("Starting interview...");
-
+setLoading(true);
     const response = await fetch(
       "https://onehope-live.onrender.com/api/ai-interview-start",
       {
@@ -82,11 +83,11 @@ const data = await response.json();
       },
     ]);
 
-    setQuestionCount(1);
 
     setStep(2);
 
   } catch (error) {
+    setLoading(false);
 
     console.error(error);
 
@@ -111,7 +112,14 @@ const sendMessage = async () => {
   console.log(updatedMessages);
 
   setMessages(updatedMessages);
+setTimeout(() => {
 
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth",
+  });
+
+}, 200);
   setInput("");
 
   setLoading(true);
@@ -128,9 +136,10 @@ const sendMessage = async () => {
     },
 
     body: JSON.stringify({
-      interest: formData.interest,
-      name: formData.name,
-    }),
+  messages: updatedMessages,
+  interest: formData.interest,
+  name: formData.name,
+}),
   }
 );
 
@@ -289,7 +298,7 @@ const sendMessage = async () => {
 
               <div className="text-sm text-gray-500">
 
-                Question {questionCount}/10
+                Question {questionCount}/5
 
               </div>
 
@@ -340,13 +349,12 @@ const sendMessage = async () => {
                 />
 
                 <button
-                  onClick={sendMessage}
-                  className="bg-blue-950 text-white px-8 rounded-2xl font-bold"
-                >
-
-                  Send
-
-                </button>
+  disabled={loading}
+  onClick={sendMessage}
+  className="bg-[#1d2b6b] hover:bg-[#16204f] disabled:bg-gray-400 text-white px-8 py-4 rounded-2xl font-bold min-w-[140px]"
+>
+  {loading ? "Thinking..." : "Send"}
+</button>
 
               </div>
 
